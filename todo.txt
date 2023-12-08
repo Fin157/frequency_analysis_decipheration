@@ -6,3 +6,18 @@ Decipheration procedure improvements to accurately decode the text without leavi
  - If it isn't and any of its letters are present in the possible errors list, we add the word to a separate list of words that aren't correct
  - After the whole decipheration process is done or the possible errors list is empty and the rest of the file is deciphered afterwards, the wrong words list is iterated through to see if there are any words that consist only of correct letters and such words are removed
  - The rest of the words need to be fixed and the mappings edited
+
+ - The word exists
+ -> remove all letters in it from possible errors list
+ - The word does not exist
+ -> the word is incorrect
+  - find the correct form of the word
+ -> the word just doesn't get recognized (non-english, not in the database, ...)
+  - skip the word and don't consider it at all
+
+ If we stumble upon a word that is correct, we can temporarily say all letters in the word are 
+
+ Let's 
+
+
+cat suffer fonkey fagen

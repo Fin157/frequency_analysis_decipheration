@@ -18,7 +18,7 @@ class Decipherator:
                 # The character isn't a letter
                 # End the word and find out if it exists
                 if not self.__word_exists__(word):
-                    # We need to fix any broken mapping so that the words make sense
+                    # We need to fix any broken mappings so that the words make sense
                     continue
 
         return text_deciph

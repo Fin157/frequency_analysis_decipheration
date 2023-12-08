@@ -20,5 +20,5 @@ def analyze_file(file_path: str) -> (list, str):
                 else:
                     letters[char] = 1
     
-    # Return the sorted dictionary and the text from the file
+    # Return a list of keys from the dictionary sorted by the value and the text from the file
     return sorted(letters, key = letters.get, reverse = True), text
