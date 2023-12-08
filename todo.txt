@@ -1,0 +1,8 @@
+Decipheration procedure improvements to accurately decode the text without leaving mistakes there
+ - Before starting the decipheration, we initialize a list with all 26 letters of the alphabet and call it our list of possible errors
+ - When reading the text character by character, we read until a character not contained in the mapping dictionary's keys is read and save all the read chacters into a string
+ - This string (a single word, hopefully in English) is then passed into the wordnet database to find out if it is a legal English word
+ - If it is, we remove all characters contained in the word from the possible errors list
+ - If it isn't and any of its letters are present in the possible errors list, we add the word to a separate list of words that aren't correct
+ - After the whole decipheration process is done or the possible errors list is empty and the rest of the file is deciphered afterwards, the wrong words list is iterated through to see if there are any words that consist only of correct letters and such words are removed
+ - The rest of the words need to be fixed and the mappings edited

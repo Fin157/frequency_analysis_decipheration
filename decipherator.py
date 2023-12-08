@@ -13,7 +13,7 @@ class Decipherator:
         for char in text:
             if char in mappings:
                 mapped_char = mappings[char.lower()]
-                text_deciph += mapped_char if char.islower() else mapped_char.upper()
+                word += mapped_char if char.islower() else mapped_char.upper()
             else:
                 # The character isn't a letter
                 # End the word and find out if it exists
