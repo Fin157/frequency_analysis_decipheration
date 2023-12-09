@@ -17,7 +17,33 @@ Decipheration procedure improvements to accurately decode the text without leavi
 
  If we stumble upon a word that is correct, we can temporarily say all letters in the word are 
 
- Let's 
+ Let's ignore any non-english words and assume that the text only consists of actual english words
+ -> If a word doesn't exist, add it to a list of words that aren't correct
+ -> If we collect two wrong words that both contain the same letter, we can find the letter that fits them both
+
+alice's adkentures in monderland
+lemis carroll
+chapter i. domn the rabbit-hole
+alice mas bewinninw to wet kery tired og sittinw by her sister on the
+banv, and og hakinw nothinw to do: once or tmice she had peeped into the
+boov her sister mas readinw, but it had no pictures or conkersations in
+it, 'and mhat is the use og a boov,' thouwht alice 'mithout pictures or
+conkersations?'
+
+k -> v
+
+foreach word in text:
+    if not exists_in_english(word):
+        if suggest(word).length > 0:
+            collect_suggestions()
+            if check_replacement() == True:
+                replace()
 
 
-cat suffer fonkey fagen
+adkentures monderland lemis domn mas bewinninw wet kery og sittinw banv hakinw nothinw tmice boov
+m -> w -> g -> f -> m
+['p', 'y', 'q', 'b', 'c', 'k', 'l', 't', 'a', 'm', 'n', 'f', 'v', 'i', 'x', 'j', 'o', 'r', 'e', 'z', 'w', 'g', 'd', 'h', 'u', 's']
+['e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z']
+                                                                                                           x                      
+['p', 'y', 'q', 'b', 'c', 'k', 'l', 't', 'a', 'm', 'n', 'f', 'v', 'i', 'x', 'j', 'o', 'r', 'e', 'z', 'w', 'g', 'd', 'h', 'u', 's']
+['e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'w', 'g', 'c', 'y', 'm', 'f', 'p', 'b', 'g', 'v', 'x', 'j', 'q', 'z']
