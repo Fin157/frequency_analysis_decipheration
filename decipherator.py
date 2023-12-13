@@ -1,6 +1,7 @@
 import enchant
 import helpers
 import re
+import dict_packer
 
 class Decipherator:
     __dict = enchant.Dict('en_GB')
@@ -33,14 +34,42 @@ class Decipherator:
         # Initialize an empty dictionary where all 'wanted' letters
         # will be saved
         wanted_letters = {}
-        correct_letters = 
+
+        unknown_letters = set(mappings.keys())
 
         for word in words:
+            # Repeat for every word in the text up until the moment
+            # when we've already encountered every English letter and
+            # no letter is wanted
+            if len(unknown_letters) == 0 and len(wanted_letters) == 0:
+                break
+            # Mark all letters in this word as seen
+            for letter in word:
+                unknown_letters.remove(letter)
+            # Proceed only if the word isn't a valid English word
             if not Decipherator.__word_exists__(word):
+                # Get viable replacements from Enchant
                 replacements = Decipherator.__get_replacements__(word)
-                # Check there is an intersection between the wanted letters
-                # and the replacements
-                intersection = set(wanted_letters.keys()).intersection(replacements.keys())
+                # If no replacements have been found, the word is way
+                # too complicated and we ignore it
+                if len(replacements) == 0:
+                    continue
+                # Calculate the intersection of the wanted letters and
+                # the newly obtained replacements
+                intersection = set(dict_packer.unpack_dict(wanted_letters)).intersection(dict_packer.unpack_dict(replacements))
+                # If there is only one possible intersection
+                if len(intersection) == 1:
+                    # Swap letters in mappings
+                    mappings[intersection[0]] = intersection[1]
+                else:
+                    # Add all replacements with the same letter to wanted letters
+                    for letter in replacements[intersection[0]]:
+                        if wanted_letters[letter] == None:
+                            wanted_letters[letter] = []
+                        wanted_letters[letter].append(replacements[letter])
+                
+
+        return mappings
 
     def __word_exists__(word: str) -> bool:
         variants = helpers.get_word_variants(word)
@@ -58,9 +87,11 @@ class Decipherator:
             for suggestion in suggestions:
                 # Only proceed if the suggested word is of the same length as the original
                 # and no letters are doubled (replaced to a letter already present in the word)
-                if len(suggestion) == word_length and len(set(suggestion)) == len(set(word)):
+                suggestions_set = set(suggestion)
+                word_set = set(word)
+                if len(suggestion) == word_length and len(suggestions_set) == len(word_set) and len(suggestions_set.difference(word_set)) <= 1:
                     for i in range(word_length):
                         if suggestion[i].lower() != word[i].lower():
-                            replacements[word[i]] = suggestion[i]
+                            replacements[word[i].lower()] = suggestion[i].lower()
 
         return replacements

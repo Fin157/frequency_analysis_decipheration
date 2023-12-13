@@ -30,6 +30,31 @@ boov her sister mas readinw, but it had no pictures or conkersations in
 it, 'and mhat is the use og a boov,' thouwht alice 'mithout pictures or
 conkersations?'
 
+adkentures
+monderland
+lemis
+
+go word by word until all letters have been met and nothing in wanted letters
+remove all word's letters from unmet letters
+check if word exists in English
+no -> get all viable suggestions
+ -> no suggestions? => proceed (word way too complicated)
+ -> intersect suggestions with wanted letters
+ -> if intersection's length > 2: add back to wanted_letters
+ -> otherwise remove from wanted and swap letters in mappings
+
+ {m: w}
+ {m: [w, n], x: d}
+
+
+
+{
+    k: v,
+    m: w,
+    n: t,
+    d: h
+}
+
 k -> v
 
 foreach word in text:
@@ -38,6 +63,18 @@ foreach word in text:
             collect_suggestions()
             if check_replacement() == True:
                 replace()
+
+
+for word in text:
+    if not word_exists(word):
+        if suggest(word).length > 0:
+            suggestions = get_suggestions(word)
+            current_checks = wanted_letters.intersect(suggestions)
+            other_checks = suggestions.intersect(currect_checks)
+            wanted_letters.add_range(other_checks)
+            for check in current_checks:
+                if word_exists(word.replace(check.key, check.value)):
+                    swap_keys()
 
 
 adkentures monderland lemis domn mas bewinninw wet kery og sittinw banv hakinw nothinw tmice boov
